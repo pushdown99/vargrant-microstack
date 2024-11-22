@@ -5,6 +5,11 @@
 # wmic cpu get NumberOfCores,NumberOfLogicalProcessors
 # wmic memphysical get maxcapacity
 # 
+# Requirements
+# physical or virtual machine running Ubuntu 22.04 LTS
+# a multi-core amd64 processor ideally with 4+ cores
+# a minimum of 16 GiB of free memory
+# 50 GiB of SSD storage available on the root disk
 vm  = "basic.wb9lab.com" # FQDN
 box = "boxen/ubuntu-22.04"
 host = vm
