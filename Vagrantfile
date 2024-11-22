@@ -16,19 +16,24 @@ host = vm
 cpus = 4
 memory = 8192
 port = 10030
+size = "50GB"
 provider = "hyperv"
 
 Vagrant.configure("2") do |config|
   config.vm.define vm do |c|
     c.vm.box = box
     c.vm.hostname = host
+    c.vm.disk :disk, size: size, name: "os", primary: true
+    c.vm.disk :disk, size: size, name: "cinder", primary: false
     #c.vm.network "private_network", ip: "192.168.56.100"
     c.vm.network "forwarded_port", guest: 22, host: port+1, auto_correct: true, id: "ssh"
     c.vm.synced_folder ".", "/vagrant", disabled: true
+    
     c.vm.provider provider do |v|
       v.vmname = host
       v.cpus = cpus
       v.memory = memory
     end
+    c.vm.provision 'shell', path: "bootstrap.sh"
   end
 end
